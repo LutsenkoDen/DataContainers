@@ -6,10 +6,8 @@ using namespace std;
 //#define INDEX_OPERATOR_CHECK
 //#define BASE_CHECK
 //#define CONSTRUCTORS_CHECK
-#define OPERATORS_CHECK
+//#define OPERATORS_CHECK
 #define RANGE_BASED_FOR
-
-
 
 class ForwardList
 {
@@ -35,12 +33,19 @@ class ForwardList
 			cout << "EDestructor:\t" << this << endl;
 #endif // DEBUG
 		}
+
+		operator int()
+		{
+			return this->Data;
+		}
+
 		friend class ForwardList;
 		friend ForwardList operator+(const ForwardList& left, const ForwardList& right);
 	};
+private:
 	Element* Head;
 	int size;
-
+public:
 	class Iterator
 	{
 		Element* Temp;
@@ -86,10 +91,20 @@ public:
 		return this->size;
 	}
 
+	Iterator begin()
+	{
+		return Head;
+	}
+
+	Iterator end()
+	{
+		return nullptr;
+	}
+
 	ForwardList()
 	{
 		this->Head = nullptr;
-		size = 0;
+		this->size = 0;
 		//Изначально создаем пустой список.
 		cout << "FLConstructor:\t" << this << endl;
 	}
@@ -404,6 +419,11 @@ void main()
 	cout << sizeof(Arr) << endl;*/
 
 	ForwardList fl = { 3, 5, 8, 13, 21 };
+	/*for (ForwardList::Iterator it = fl.begin(); it != fl.end(); it++)
+	{
+		cout << *it << tab;
+	}
+	cout << endl;*/
 	for (int i : fl)
 	{
 		cout << i << tab;
